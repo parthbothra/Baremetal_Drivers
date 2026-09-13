@@ -1,2 +1,3 @@
 # Baremetal_Drivers
-Here i will be writing baremetal drivers and api  for many communication protocol and important pheripherals
+Here i will display all important drivers and api of all important communication protocols and many interfaces.
+MCU BOARD - STM32F411CEU6 
