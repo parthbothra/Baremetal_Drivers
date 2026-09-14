@@ -54,10 +54,10 @@ if(pSPIhandle->spiconfig.SPI_busconfig == SPI_BUS_CONFIG_FD){
     temreg &= ~(1<<15);
 
 }
-elseif(pSPIhandle->spiconfig.SPI_busconfig == SPI_BUS_CONFIG_HD){
+else if(pSPIhandle->spiconfig.SPI_busconfig == SPI_BUS_CONFIG_HD){
     temreg |= (1<<15);
 }
-elseif(pSPIhandle->spiconfig.SPI_busconfig == SPI_BUS_CONFIG_SIMPLEX_RXONLY){
+else if(pSPIhandle->spiconfig.SPI_busconfig == SPI_BUS_CONFIG_SIMPLEX_RXONLY){
     temreg &= ~(1<<15);
     temreg |= (1<<10);
 }
@@ -104,10 +104,46 @@ void SPI_deinit(spi_regdef_t *pSPIx);
 void SPI_senddata(spi_regdef_t *pSPIx,uint8_t *pTXBuffer,uint32_t len){
     while(len > 0){
         //1.wait until TXE is set
-        while(pSPIx->SPI_SR & (1<<1))
-        
+        while(!(pSPIx->SPI_SR & (1<<1)));
+        //2. check the dff bit
+        if(pSPIx->SPI_CR1 & (1<<11)){
+            //16bit dff
+            pSPIx->SPI_DR = *((uint16_t*)pTXBuffer);
+            len--;
+            len--;
+            (uint16_t*)pTXBuffer++;
+
+        }
+        else{
+            //8bit dff
+            pSPIx->SPI_DR = *pTXBuffer;
+            len--;
+            pTXBuffer++;
+        }
     }
+        
+    
 }
 
 
-void SPI_receivedata(spi_regdef_t *pSPIx,uint8_t *pRXBuffer,uint32_t len);
+void SPI_receivedata(spi_regdef_t *pSPIx,uint8_t *pRXBuffer,uint32_t len){
+    while(len > 0){
+        //1.wait until RXE is set
+        while(!(pSPIx->SPI_SR & (1<<0)));
+        //2. check the dff bit
+        if(pSPIx->SPI_CR1 & (1<<11)){
+            //16bit dff
+            pSPIx->SPI_DR = *((uint16_t*)pRXBuffer);
+            len--;
+            len--;
+            (uint16_t*)pRXBuffer++;
+
+        }
+        else{
+            //8bit dff
+            pSPIx->SPI_DR = *pRXBuffer;
+            len--;
+            pRXBuffer++;
+        }
+    }
+}
