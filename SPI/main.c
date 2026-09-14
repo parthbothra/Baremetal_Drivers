@@ -133,7 +133,7 @@ void SPI_receivedata(spi_regdef_t *pSPIx,uint8_t *pRXBuffer,uint32_t len){
         //2. check the dff bit
         if(pSPIx->SPI_CR1 & (1<<11)){
             //16bit dff
-            pSPIx->SPI_DR = *((uint16_t*)pRXBuffer);
+            *((uint16_t*)pRXBuffer) = pSPIx->SPI_DR;
             len--;
             len--;
             (uint16_t*)pRXBuffer++;
@@ -141,7 +141,7 @@ void SPI_receivedata(spi_regdef_t *pSPIx,uint8_t *pRXBuffer,uint32_t len){
         }
         else{
             //8bit dff
-            pSPIx->SPI_DR = *pRXBuffer;
+            *pRXBuffer = pSPIx->SPI_DR;
             len--;
             pRXBuffer++;
         }
