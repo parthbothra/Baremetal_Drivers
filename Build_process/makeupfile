@@ -1,0 +1,16 @@
+CC=arm-none-eabi-gcc
+MACH=cortex-m4
+CFLAGS= -c -mcpu=$(MACH) -mthumb -std=gnull -o0
+all:main.o led.o startup_file.o
+main.o:main.c
+    $(CC) $(CFLAGS) -o $@ $^
+
+led.o:led.c
+    $(CC) $(CFLAGS) -o $@ $^
+
+startup_file.o:startup_file.c
+    $(CC) $(CFLAGS) -o $@ $^
+
+
+
+    
