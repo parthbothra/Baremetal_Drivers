@@ -22,7 +22,7 @@ Register-level, **bare-metal drivers and APIs** for communication protocols and 
 
 - [Arm GNU Toolchain](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads) (`arm-none-eabi-gcc`)
 - `make`
-- A flashing tool such as OpenOCD, `st-flash` or STM32CubeProgrammer, and an ST-Link or USB DFU (Black Pill boot mode)
+- A flashing tool such as STM32CubeProgrammer, and an ST-Link or USB DFU (Black Pill boot mode)
 
 ---
 
