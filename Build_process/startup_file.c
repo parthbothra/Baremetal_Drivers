@@ -219,8 +219,55 @@ void Default_Handler(void)
 
 void Reset_Handler(void)
 {
+    // copy .data section to SRAM
+    uint32_t size = (uint32_t)&_edata - (uint32_t)&_sdata;
+
+    uint8_t *pDst = (uint8_t *)&_sdata;   // sram
+    uint8_t *pSrc = (uint8_t *)&_la_data; // flash
+
+    for (uint32_t i = 0; i < size; i++){
+        *pDst++ = *pSrc++;
+    }
+
+    // Init. the .bss section to zero in SRAM
+    size = (uint32_t)&_ebss - (uint32_t)&_sbss;
+    pDst = (uint8_t *)&_sbss;
+
+    for (uint32_t i = 0; i < size; i++){
+        *pDst++ = 0;
+    }
+
+    __libc_init_array();
+
+    main();
     
 }
 
 
 
+
+
+
+/*
+Basics of linker script
+ENTRY(Reset_Handler)
+
+SECTIONS
+{
+//this section should include .text section of all input files
+.text :
+{
+//Merge all .isr_vector section of all input files
+//Merge all .text section of all input files
+//Merge all .rodata section of all input files
+
+} >(vma)AT>(lma)  vma->virtual memory address lma->load memory address
+//this section should include .data section of all input files
+.data :
+{
+//Merge all .data section of all input files
+} 
+
+}>(vma)AT>(lma)
+
+*/
