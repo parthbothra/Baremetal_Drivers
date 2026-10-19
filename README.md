@@ -2,11 +2,6 @@
 
 Register-level, **bare-metal drivers and APIs** for communication protocols and common peripherals, written in C from scratch with no HAL, no CMSIS and no vendor libraries. Everything is built straight from the reference manual: register structs, bit positions, startup code and vector table.
 
-![Language](https://img.shields.io/badge/language-C-blue)
-![MCU](https://img.shields.io/badge/MCU-STM32F411CEU6-03234B)
-![Core](https://img.shields.io/badge/core-ARM%20Cortex--M4-0091BD)
-![Status](https://img.shields.io/badge/status-work%20in%20progress-orange)
-
 ---
 
 ## Target hardware
