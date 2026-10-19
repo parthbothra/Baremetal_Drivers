@@ -11,7 +11,7 @@ Register-level, **bare-metal drivers and APIs** for communication protocols and 
 | Board | STM32 "Black Pill" |
 | MCU | STM32F411CEU6 |
 | Core | ARM Cortex-M4 (with FPU) |
-| SRAM | 128 KB, starting at `0x20000000` |
+| SRAM | 128 KB |
 | Toolchain | `arm-none-eabi-gcc` |
 
 ---
